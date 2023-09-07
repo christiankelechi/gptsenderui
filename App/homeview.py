@@ -4,44 +4,82 @@ import customtkinter
 import tkinter.messagebox as tkmb
 import thememanager
 import random
+import webbrowser
   # Themes: "blue" (standard), "green", "dark-blue"
 from pathlib import Path
+app_running=True
+    
+def check_app_version():
+    with open("cachefiles/version.txt","r") as versionfile:
+        current_version=float(str(versionfile.read()))
+    version_data = {
+    'current_version':current_version
+    # 'generated_emails':None,
+    # 'swapped_emails':None
+    }
 
+    # headers = {
+    # 'Authorization': f'Bearer {access_token}',
+    # 'Content-Type': 'application/json',
+    # 'User-ID':request_id  # Include the request ID in the headers
+    # }
+
+    from baseurlfile import base_url
+    # while app_running==True:
+
+    try:
+        import requests
+        response = requests.post(f"{base_url}api/check_version/",json=version_data)
+        data = response.json()
+        message = data.get("app_update_response")
+        # pip install plyer  
+        from plyer import notification  
+        
+        notification_title = 'Software Update Needed'  
+        # notification_message = 'Thank you for reading. Have a Good Day.'  
+        
+        notification.notify(  
+            title = notification_title,  
+            message = message,  
+            app_icon = None,  
+            timeout = 10000,  
+            toast = True  
+            )  
+        # webbrowser.open("www.codeblazeacademy.net")
+    except Exception as e:
+        pass
+        # self.show_notification("Error: " + str(e))
+    import time
+    # time.sleep(60)
 class App(customtkinter.CTk):
-    async def makeRequestToOpenAi(self):
-                # data = {
-        #     'number_of_mail': str(data_loaded['number_of_messages']),
-        #     'prompt': str(data_loaded['prompt']),
-        #     'access_token':str(access_token),
-        #     'site_url':str(self.companie_site_edit.text()),
-        #     'email_address':str(self.companies_mail_edit.text())
-        #     # 'generated_emails':None,
-        #     # 'swapped_emails':None
-        # }
-        
-        # headers = {
-        # 'Authorization': f'Bearer {access_token}',
-        # 'Content-Type': 'application/json',
-        # 'User-ID':request_id  # Include the request ID in the headers
-        # }
+    
 
         
-        # if (self.companie_site_edit.text()=='') or (self.companies_mail_edit.text()==''):
-        #     from PyQt6.QtWidgets import QMessageBox
-           
-          
-        #     QMessageBox.warning(self,"Form Error","Try to fill in all fields ")
-           
-            
-        # else:
-            
-            
-        #     from baseurlfile import base_url
-        #     response = requests.post(f'{base_url}email-generator/', json=data,headers=headers)
-            
-            # current_number_of_messages.append(self.number_of_messages)
-            # data_loaded['response']=response
-        # from PyQt6.QtWidgets import QMessageBox
+    
+
+    def show_notification(self,message):
+        import tkinter as tk
+        notification_window = tk.Tk()
+        notification_window.title("Notification")
+        notification_window.geometry("300x100+900+500")  # Adjust the position as needed
+
+        label = tk.Label(notification_window, text=message, padx=10, pady=10)
+        label.pack()
+
+        notification_window.after(60000, notification_window.destroy)  # Close notification after 5 seconds
+        # notification_window.mainloop()
+
+    # Create the main application window
+    # root = tk.Tk()
+    # root.title("App Version Checker")
+
+    # Create a button to check the app version
+    
+    
+
+        # Run the Tkinter main loop
+        
+    async def makeRequestToOpenAi(self):
         tkmb.showinfo(title="Message prompt alert",message="You are about to generate unique emails according to your preference, generation will not take more than 1minute from range of 1-1000 messages")
         # self.start_loading_animation() 
         self.prompt=self.prompt_combo.get()
@@ -217,20 +255,10 @@ class App(customtkinter.CTk):
                             import openai
                             import json
                             def create_response(n):
-                                # response = openai.Completion.create(
-                                #     engine="text-davinci-003",
-                                #     prompt=f"{follow_up_prompt}",
-                                #     # temperature=1.5,
-                                #     temperature=1,
-                                #     max_tokens=45,
-                                #     top_p=1,
-                                #     n=n,  # Generate n responses
-                                #     frequency_penalty=2.0,
-                                #     presence_penalty=2.0,
-                                #     )
+                                
                                 api_url = "https://api.openai.com/v1/engines/text-davinci-003/completions"
 
-        # Define your prompt
+    
                                 
                                 params = {
                                     "prompt": str(follow_up_prompt),
@@ -753,59 +781,7 @@ class App(customtkinter.CTk):
                 
 
         
-        
-
-        # file_path = 'current_user_token.txt'
-        # with open("emailgenerationdetails.json","w") as generationFile:
-        #     data={'number_of_messages':str(self.number_of_messages),'prompt':self.prompt}
-        #     import json
-        #     json.dump(data,generationFile)
-
-        # with open(file_path, 'r') as file:
-        #     access_token = str(file.read())
-        
-        # with open('current_user_token.txt', 'r') as file:
-        #     access_token = file.read()
-
-        # with open('request_id.txt', 'r') as file:
-        #     request_id = file.read()
-        # # with ope
-        # # access_token=""
-        # with open("emailgenerationdetails.json","r") as generationFile:
-        #     data_loaded=json.load(generationFile)
-        # data = {
-        #     'number_of_mail': str(data_loaded['number_of_messages']),
-        #     'prompt': str(data_loaded['prompt']),
-        #     'access_token':str(access_token),
-        #     'site_url':str(self.companie_site_edit.text()),
-        #     'email_address':str(self.companies_mail_edit.text())
-        #     # 'generated_emails':None,
-        #     # 'swapped_emails':None
-        # }
-        
-        # headers = {
-        # 'Authorization': f'Bearer {access_token}',
-        # 'Content-Type': 'application/json',
-        # 'User-ID':request_id  # Include the request ID in the headers
-        # }
-
-        
-        # if (self.companie_site_edit.text()=='') or (self.companies_mail_edit.text()==''):
-        #     from PyQt6.QtWidgets import QMessageBox
-           
-          
-        #     QMessageBox.warning(self,"Form Error","Try to fill in all fields ")
-           
-            
-        # else:
-            
-            
-        #     from baseurlfile import base_url
-        #     response = requests.post(f'{base_url}email-generator/', json=data,headers=headers)
-            
-            # current_number_of_messages.append(self.number_of_messages)
-            # data_loaded['response']=response
-            
+       
             
             if response.status_code==200:
                 
@@ -813,8 +789,8 @@ class App(customtkinter.CTk):
                 # self.email_terminal.setText(str(data_loaded))
                 self.track_state=0
               
-                from PyQt6.QtGui import QMovie
-                self.tract_loading=0
+                # from PyQt6.QtGui import QMovie
+                # self.tract_loading=0
                
             elif response.status_code==302:
                 
@@ -841,6 +817,11 @@ class App(customtkinter.CTk):
 
     def set_light_theme():
         thememanager.set_theme("light")
+    
+    def navigateToHome(self):
+        import homeview
+        homeObj=homeview.App()
+        homeObj.mainloop()
 
 # Function to change the theme to 'dark'
     def set_dark_theme():
@@ -896,7 +877,7 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid_rowconfigure(5, weight=1)
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Gpt Sender", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
-        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Home')
+        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToHome,text='Home')
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
         
         self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, text='Wallet',command=self.navigateToWallet)
@@ -904,7 +885,7 @@ class App(customtkinter.CTk):
         # self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Mails')
         # self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
 
-        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToNavSendView,text='Send Mails')
+        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToSendNav,text='Send Mails')
         self.sidebar_button_4.grid(row=3, column=0, padx=20, pady=10)
 
         # self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
@@ -927,12 +908,7 @@ class App(customtkinter.CTk):
 # combobox.set("option 2")
         self.prompt_combo.grid(row=3, column=1, columnspan=1, padx=(20, 5), pady=(20, 5), sticky="nsew")
 
-#         combobox = customtkinter.CTkComboBox(self, values=prompt_list,
-#                                      command=combobox_callback,width=100,height=50)
-# # combobox.set("option 2")
-#         combobox.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
-        # number_of_email_entry = customtkinter.CTkEntry(self, placeholder_text="eg 100",width=200)
-        # number_of_email_entry.grid(row=2, column=1, columnspan=1, padx=(20, 0), pady=(20, 20))
+
         self.generatemailbutton = customtkinter.CTkButton(self, fg_color="transparent", border_width=1, text_color=("gray10", "#DCE4EE"),text="generate",width=90,command=self.generate_email_template)
         self.generatemailbutton.grid(row=3, column=3, sticky="nsew",pady=(10,10),padx=(10,10))
         
@@ -942,65 +918,6 @@ class App(customtkinter.CTk):
         self.textbox = customtkinter.CTkTextbox(self, width=100,height=300)
         self.textbox.grid(row=0, column=1, padx=(0, 40), pady=(0, 40), sticky="nsew")
 
-        # create tabview
-        # self.tabview.add("CTkTabview")
-        # self.tabview.add("Tab 2")
-        # self.tabview.add("Tab 3")
-        # self.tabview.tab("CTkTabview").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
-        # self.tabview.tab("Tab 2").grid_columnconfigure(0, weight=1)
-
-        # self.optionmenu_1 = customtkinter.CTkOptionMenu(self.tabview.tab("CTkTabview"), dynamic_resizing=False,
-        #                                                 values=["1", "2", "3"])
-        # self.optionmenu_1.grid(row=0, column=0, padx=20, pady=(20, 10))
-        # self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("CTkTabview"),
-        #                                             values=["Value 1", "Value 2", "Value Long....."])
-        # self.combobox_1.grid(row=1, column=0, padx=20, pady=(10, 10))
-        # self.string_input_button = customtkinter.CTkButton(self.tabview.tab("CTkTabview"), text="Open CTkInputDialog",
-        #                                                    command=self.open_input_dialog_event)
-        # self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
-        # self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Tab 2"), text="CTkLabel on Tab 2")
-        # self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
-
-        # create radiobutton frame
-        # self.radiobutton_frame = customtkinter.CTkFrame(self)
-        # self.radiobutton_frame.grid(row=0, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
-        # self.radio_var = tkinter.IntVar(value=0)
-        # self.label_radio_group = customtkinter.CTkLabel(master=self.radiobutton_frame, text="CTkRadioButton Group:")
-        # self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
-        # self.radio_button_1 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=0)
-        # self.radio_button_1.grid(row=1, column=2, pady=10, padx=20, sticky="n")
-        # self.radio_button_2 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=1)
-        # self.radio_button_2.grid(row=2, column=2, pady=10, padx=20, sticky="n")
-        # self.radio_button_3 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=2)
-        # self.radio_button_3.grid(row=3, column=2, pady=10, padx=20, sticky="n")
-
-        # create slider and progressbar frame
-        # self.slider_progressbar_frame = customtkinter.CTkFrame(self, fg_color="transparent")
-        # self.slider_progressbar_frame.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
-        # self.slider_progressbar_frame.grid_columnconfigure(0, weight=1)
-        # self.slider_progressbar_frame.grid_rowconfigure(4, weight=1)
-        # self.seg_button_1 = customtkinter.CTkSegmentedButton(self.slider_progressbar_frame)
-        # self.seg_button_1.grid(row=0, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        # self.progressbar_1 = customtkinter.CTkProgressBar(self.slider_progressbar_frame)
-        # self.progressbar_1.grid(row=1, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        # self.progressbar_2 = customtkinter.CTkProgressBar(self.slider_progressbar_frame)
-        # self.progressbar_2.grid(row=2, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        # self.slider_1 = customtkinter.CTkSlider(self.slider_progressbar_frame, from_=0, to=1, number_of_steps=4)
-        # self.slider_1.grid(row=3, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        # self.slider_2 = customtkinter.CTkSlider(self.slider_progressbar_frame, orientation="vertical")
-        # self.slider_2.grid(row=0, column=1, rowspan=5, padx=(10, 10), pady=(10, 10), sticky="ns")
-        # self.progressbar_3 = customtkinter.CTkProgressBar(self.slider_progressbar_frame, orientation="vertical")
-        # self.progressbar_3.grid(row=0, column=2, rowspan=5, padx=(10, 20), pady=(10, 10), sticky="ns")
-
-        # create scrollable frame
-        # self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="CTkScrollableFrame")
-        # self.scrollable_frame.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
-        # self.scrollable_frame.grid_columnconfigure(0, weight=1)
-        # self.scrollable_frame_switches = []
-        # for i in range(100):
-        #     switch = customtkinter.CTkSwitch(master=self.scrollable_frame, text=f"CTkSwitch {i}")
-        #     switch.grid(row=i, column=0, padx=10, pady=(0, 20))
-        #     self.scrollable_frame_switches.append(switch)
 
         # create checkbox and switch frame
         self.checkbox_slider_frame = customtkinter.CTkFrame(self)
@@ -1021,28 +938,21 @@ class App(customtkinter.CTk):
         self.companies_site = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='www.codeblazeacademy.net')
         self.companies_site.grid(row=3, column=1, pady=(20, 0), padx=20, sticky="n")
         
-        # self.checkbox_1.select()
-        # self.scrollable_frame_switches[0].select()
-        # self.scrollable_frame_switches[4].select()
-        # self.radio_button_3.configure(state="disabled")
         self.appearance_mode_optionemenu.set("Light")
         self.scaling_optionemenu.set("100%")
-        # self.optionmenu_1.set("CTkOptionmenu")
-        # self.combobox_1.set("CTkComboBox")
-        # self.slider_1.configure(command=self.progressbar_2.set)
-        # self.slider_2.configure(command=self.progressbar_3.set)
-        # self.progressbar_1.configure(mode="indeterminnate")
-        # self.progressbar_1.start()
-        # self.textbox.insert()
-        # self.seg_button_1.configure(values=["CTkSegmentedButton", "Value 2", "Value 3"])
-        # self.seg_button_1.set("Value 2")
+        # self.check_app_version()
+        # self.check_app_version()
+        
     def generate_email_template(self):
         # async def run_tasks():
         import asyncio
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.makeRequestToOpenAi())
     
-
+    def navigateToSendNav(self):
+        import sendnavformview
+        sendNavObj=sendnavformview.App()
+        sendNavObj.mainloop()
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
@@ -1063,4 +973,13 @@ class App(customtkinter.CTk):
 
 if __name__ == "__main__":
     app = App()
+    import time
+    check_app_version() 
+   
+
     app.mainloop()
+    
+
+    
+    
+    

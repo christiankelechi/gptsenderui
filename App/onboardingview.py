@@ -17,7 +17,7 @@ class GPTSenderApp(tk.Tk):
         ctk.set_default_color_theme("blue")
         
         # Set the window icon
-        icon = Image.open("gptsenderui/images/gptsenderlogo.png")
+        icon = Image.open("images/gptsenderlogo.png")
         icon = ImageTk.PhotoImage(icon)
         self.iconphoto(True, icon)
 
@@ -29,7 +29,7 @@ class GPTSenderApp(tk.Tk):
         self.frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         # Load the logo image and resize it
-        logo_image = Image.open("gptsenderui/images/gptsenderlogo.png")
+        logo_image = Image.open("images/gptsenderlogo.png")
         logo_image.thumbnail((200, 200), Image.AFFINE)  # Resize the logo to fit within 200x200 pixels
         logo_image = ImageTk.PhotoImage(logo_image)
 

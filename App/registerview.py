@@ -13,7 +13,7 @@ app = ctk.CTk()
 # ctk.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 with open("themevalue.txt","r") as readtheme:
     themeString=str(readtheme.read())
-    ctk.set_appearance_mode(themeString)
+ctk.set_appearance_mode(themeString)
 ctk.set_default_color_theme("blue")
 # app.geometry("1000x500")
 
@@ -27,7 +27,7 @@ y_position = (screen_height - 500) // 2  # 500 is the height of the window
 
 app.geometry(f"1000x500+{x_position}+{y_position}")
 app.title("Gpt Sender")
-
+content=''
 def open_home_dialog():
     # homeView=hvm.HomeViewWindow(self)
     # homeView.show()
@@ -45,11 +45,11 @@ def send_signup_request():
 
     
         data = {
-            'email': email,
+            'email': str(email),
             'username': None,
             'first_name': None,
             'last_name': None,
-            'password': user_pass,
+            'password': str(password),
             
         }
         from baseurlfile import base_url
@@ -61,7 +61,7 @@ def send_signup_request():
             registered_username = response_data['user']['email']
             request_id=response_data['user']['id']
             print(response_data)
-            show_success_message(registered_username)
+            
             with open('current_user_token.txt', 'w') as file:
                 file.write(str(response.json().get('access')))
             with open('request_id.txt', 'w') as file:
@@ -78,15 +78,19 @@ def send_signup_request():
             # }
             import assignkey
             assignkey.assignOpenApiKey()
-
+            # tkmb.showinfo(title="Registration Alert",message=f"Registration with {}")
             print("successful")
+            show_success_message(registered_username)
             import loginview
-            tkmb.showinfo(title="Login Successful",message="You have Registered Successfully")
+            
             signin_window=loginview.app.mainloop
             
 
         else:
-            show_error_message()
+            # response_data = response.json()
+            # registered_username = response_data['user']['email']
+            
+            tkmb.showinfo(title='Error message',message=str(content))
 
 # def navigateToLoginPage(self):
 #     from login import LoginMainForm
@@ -94,15 +98,15 @@ def send_signup_request():
 #     home_dialog = LoginMainForm(self)  # Instantiate the HomeDialog with the parent as self
 #     home_dialog.show()  # Open the HomeDialog modally
 
-def show_success_message(self, email):
-    message = f"Your account has been created successfully.\nEmail: {email}"
-    (self, "Registration Successful", message)
-    tkmb.showinfo(title="Login Successful",message="You have Registered Successfully")
-def show_error_message():
-    tkmb.showinfo(title="Login Successful",message="You have Registered Successfully")
+def show_success_message(email):
+    message_response = f"Your account has been created successfully.\nEmail: {email}"
+    
+    tkmb.showinfo(title="Registration Successful",message=message_response)
+# def show_error_message(email):
+    # tkmb.showinfo(title="Registration Alert",)
 
 def show_password_error_message():
-    tkmb.showinfo(title="Login Successful",message="You have Registered Successfully")
+    tkmb.showinfo(title="Alert",message="Error showing password")
     
     
 #     username = "Enter Username"
@@ -141,7 +145,7 @@ user_email_entry.pack(pady=12,padx=10)
 user_pass= ctk.CTkEntry(master=frame,placeholder_text="Password",show="*",width=350)
 user_pass.pack(pady=12,padx=10)
 
-user_confirm_password= ctk.CTkEntry(master=frame,placeholder_text="confirm password",width=350)
+user_confirm_password= ctk.CTkEntry(master=frame,placeholder_text="confirm password",show="*",width=350)
 user_confirm_password.pack(pady=12,padx=10)
   
 

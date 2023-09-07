@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMessageBox
+# from PyQt6.QtWidgets import QMessageBox
 import requests
 from baseurlfile import base_url
 import tkinter.messagebox as tkmb
@@ -23,5 +23,5 @@ def assignOpenApiKey():
 
         print(str(open_ai_key)+" assigned to "+str(user))
         # QMessageBox.information(self, "API Assignment successful", f"You have successfully added {open_ai_key} to {user}.")
-        m.information(self, "API Assignment successful", f"You have successfully added {open_ai_key} to {user}.")
-        tkmb.showinfo(title="Login Successful",message=f"API Assignment successful You have successfully added {open_ai_key} to {user}.")
+        # tkmb.showinfo(title="API Assignment successful", message="You have successfully added {open_ai_key} to {user}.")
+        # tkmb.showinfo(title="Login Successful",message=f"API Assignment successful You have successfully added {open_ai_key} to {user}.")

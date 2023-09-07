@@ -4,6 +4,21 @@ import requests
 import tkinter.messagebox as tkmb
 
 class App(customtkinter.CTk):
+    def navigateToWallet(self):
+        import wallet
+        walletObj=wallet.App()
+        walletObj.mainloop()
+    
+    def navigateToHome(self):
+        import homeview
+        homeObj=homeview.App()
+        homeObj.mainloop()
+
+    def navigateToSendNav(self):
+        import sendnavformview
+        sendNavObj=sendnavformview.App()
+        sendNavObj.mainloop()
+
     def __init__(self):
         super().__init__()
         # customtkinter.set_appearance_mode("System")
@@ -34,14 +49,14 @@ class App(customtkinter.CTk):
         
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Gpt Sender", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
-        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Home')
+        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToHome,text='Home')
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Wallet')
+        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToWallet,text='Wallet')
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Mails')
-        self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
-        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Send Mails')
-        self.sidebar_button_4.grid(row=4, column=0, padx=20, pady=10)
+        # self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Mails')
+        # self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
+        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToSendNav,text='Send Mails')
+        self.sidebar_button_4.grid(row=3, column=0, padx=20, pady=10)
 
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
@@ -111,27 +126,52 @@ class App(customtkinter.CTk):
             email_host_user=smtp_response.json().get('email_host_user')
             email_host_password=smtp_response.json().get('email_host_password')
             email_port=smtp_response.json().get('email_port')
-        self.emailhostfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg mail.supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
-        self.emailhostfield.insert(0,email_host)
-        self.emailhostfield.grid(row=0, column=1, padx=10, pady=(20, 5), sticky="w")
 
-        self.emailhostuserfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg support@supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
-        self.emailhostuserfield.insert(0,email_host_user)
-        self.emailhostuserfield.grid(row=1, column=1, padx=10, pady=(20, 5), sticky="w")
+            if email_host==None  or email_host_user==None or email_host_password==None or email_port==None:
+                self.emailhostfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg mail.supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailhostfield.insert(0,"None")
+                self.emailhostfield.grid(row=0, column=1, padx=10, pady=(20, 5), sticky="w")
 
-        self.emailpasswordfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg Sup1234!', width=400, text_color=['black','white'], font=("serif", 22))
-        self.emailpasswordfield.insert(0,email_host_password)
-        self.emailpasswordfield.grid(row=2, column=1, padx=10, pady=(20, 5), sticky="w")
+                self.emailhostuserfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg support@supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailhostuserfield.insert(0,"None")
+                self.emailhostuserfield.grid(row=1, column=1, padx=10, pady=(20, 5), sticky="w")
 
-        self.emailportfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg 420', width=400, text_color=['black','white'], font=("serif", 22))
-        self.emailportfield.insert(0,email_port)
-        self.emailportfield.grid(row=3, column=1, padx=10, pady=(20, 5), sticky="w")
+                self.emailpasswordfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg Sup1234!', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailpasswordfield.insert(0,"None")
+                self.emailpasswordfield.grid(row=2, column=1, padx=10, pady=(20, 5), sticky="w")
 
-        self.sslfield = customtkinter.CTkComboBox(card_frame,values=['False','True'],width=400, text_color=['black','white'], font=("serif", 22))
-        self.sslfield.grid(row=4, column=1, padx=10, pady=(20, 5), sticky="w")
+                self.emailportfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg 420', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailportfield.insert(0,"None")
+                self.emailportfield.grid(row=3, column=1, padx=10, pady=(20, 5), sticky="w")
 
-        self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['False','True'], width=400, text_color=['black','white'], font=("serif", 22))
-        self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
+                self.sslfield = customtkinter.CTkComboBox(card_frame,values=['False','True'],width=400, text_color=['black','white'], font=("serif", 22))
+                self.sslfield.grid(row=4, column=1, padx=10, pady=(20, 5), sticky="w")
+
+                self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['False','True'], width=400, text_color=['black','white'], font=("serif", 22))
+                self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
+            else:
+                
+                self.emailhostfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg mail.supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailhostfield.insert(0,email_host)
+                self.emailhostfield.grid(row=0, column=1, padx=10, pady=(20, 5), sticky="w")
+
+                self.emailhostuserfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg support@supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailhostuserfield.insert(0,email_host_user)
+                self.emailhostuserfield.grid(row=1, column=1, padx=10, pady=(20, 5), sticky="w")
+
+                self.emailpasswordfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg Sup1234!', width=400, text_color=['black','white'], font=("serif", 22),show="*")
+                self.emailpasswordfield.insert(0,email_host_password)
+                self.emailpasswordfield.grid(row=2, column=1, padx=10, pady=(20, 5), sticky="w")
+
+                self.emailportfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg 420', width=400, text_color=['black','white'], font=("serif", 22))
+                self.emailportfield.insert(0,email_port)
+                self.emailportfield.grid(row=3, column=1, padx=10, pady=(20, 5), sticky="w")
+
+                self.sslfield = customtkinter.CTkComboBox(card_frame,values=['False','True'],width=400, text_color=['black','white'], font=("serif", 22))
+                self.sslfield.grid(row=4, column=1, padx=10, pady=(20, 5), sticky="w")
+
+                self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['False','True'], width=400, text_color=['black','white'], font=("serif", 22))
+                self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
             # self.send_mail_ui.email_host_edit.setText(email_host)
             # self.send_mail_ui.email_host_user_edit.setText(email_host_user)
             # self.send_mail_ui.email_port_edit.setText(email_port)

@@ -5,6 +5,21 @@ import asyncio
 import requests
 
 class App(customtkinter.CTk):
+    def navigateToHome(self):
+        import homeview
+        homeObj=homeview.App()
+        homeObj.mainloop()
+    
+    def navigateToWallet(self):
+        import wallet
+        walletObj=wallet.App()
+        walletObj.mainloop()
+
+    def navigateToSendMail(self):
+        import sendnavformview
+        sendMailsViewObj=sendnavformview.App()
+        sendMailsViewObj.mainloop()
+
     async def makeAllWalletRequest(self):
     
         await asyncio.sleep(1)
@@ -85,34 +100,34 @@ class App(customtkinter.CTk):
         
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Gpt Sender", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
-        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, command=self.openHomeView,text='Home')
-        self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Wallet')
+        self.home_button_menu = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToHome,text='Home')
+        self.home_button_menu.grid(row=1, column=0, padx=20, pady=10)
+        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToWallet,text='Wallet')
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Mails')
-        self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
-        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Send Mails')
-        self.sidebar_button_4.grid(row=4, column=0, padx=20, pady=10)
+        # self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Mails')
+        # self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
+        self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToSendMail,text='Send Mails')
+        self.sidebar_button_4.grid(row=3, column=0, padx=20, pady=10)
 
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
-        self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
-                                                               command=self.change_scaling_event)
+        self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],command=self.change_scaling_event)
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
         # Create a card frame for wallet information
-        card_frame = customtkinter.CTkFrame(self, corner_radius=10, fg_color=["skyblue", "skyblue"])
+        card_frame = customtkinter.CTkFrame(self, corner_radius=10, fg_color=["#243028", "#243028"])
         card_frame.grid(row=0, column=1, rowspan=1, padx=20, pady=20, sticky="nsew")
-
+        
         wallet_label = customtkinter.CTkLabel(card_frame, text="Wallet ID:", text_color='white', font=("serif", 22))
         wallet_label.grid(row=0, column=0, padx=(20, 10), pady=(20, 5), sticky="w")
 
-        fund_label = customtkinter.CTkLabel(card_frame, text="Available Fund:", text_color='white', font=("serif", 22))
+        fund_label = customtkinter.CTkLabel(card_frame, text="Available Fund:($)", text_color='white', font=("serif", 22))
         fund_label.grid(row=1, column=0, padx=(20, 10), pady=5, sticky="w")
 
         unit_label = customtkinter.CTkLabel(card_frame, text="Available Unit:", font=("serif", 22), text_color='white')
         unit_label.grid(row=2, column=0, padx=(20, 10), pady=5, sticky="w")
-
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.makeAllWalletRequest())
         import json
         with open("cachefiles/wallet.json",'r') as walletFile:
             data=json.load(walletFile)
@@ -132,11 +147,10 @@ class App(customtkinter.CTk):
         self.unit_value = customtkinter.CTkLabel(card_frame, text=str(units_of_mails), width=200, text_color='white', font=("serif", 22))
         self.unit_value.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
-        fund_button = customtkinter.CTkButton(self, text="Fund Wallet", width=200, text_color='white', font=("serif", 22),command=self.navigateToFundView)
+        fund_button = customtkinter.CTkButton(card_frame, text="Fund Wallet", width=200, text_color='white', font=("serif", 22),command=self.navigateToFundView)
         fund_button.grid(row=3, column=1, padx=(20, 10), pady=(20, 20), sticky="w")
 
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.makeAllWalletRequest())
+        
         # self.wallet_address_label.setText(str(walletid))
         # self.availablefund_label.setText(str(wallet_amount))
         # self.availableunit_label.setText(f'{units_of_mails}mails unit')
@@ -159,6 +173,8 @@ class App(customtkinter.CTk):
         import topupview
         fundviewObj=topupview.App()
         fundviewObj.mainloop()
+    
+    
 
 if __name__ == "__main__":
     app = App()
