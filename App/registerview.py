@@ -76,8 +76,8 @@ def send_signup_request():
             #     'Content-Type': 'application/json',
             #     'User-ID': request_id  # Include the request ID in the headers
             # }
-            import assignkey
-            assignkey.assignOpenApiKey()
+            # import assignkey
+            # assignkey.assignOpenApiKey()
             # tkmb.showinfo(title="Registration Alert",message=f"Registration with {}")
             print("successful")
             show_success_message(registered_username)

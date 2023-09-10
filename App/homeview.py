@@ -83,7 +83,7 @@ class App(customtkinter.CTk):
         tkmb.showinfo(title="Message prompt alert",message="You are about to generate unique emails according to your preference, generation will not take more than 1minute from range of 1-1000 messages")
         # self.start_loading_animation() 
         self.prompt=self.prompt_combo.get()
-        self.number_of_messages=self.number_of_messages.get()
+        self.number_of_messages=self.numberofmessages.get()
         self.email_keywords_list=['follow_up'+f'replace the generated chat gpt content response with {self.companies_email.get()} for the companies emails and also {self.companies_site.get()} for the companies website any where necessary','top_up'+f'replace the generated chat gpt content response with {self.companies_email.get()} for the companies emails and also {self.companies_site.get()} for the companies website any where necessary','advert'+f'replace the generated chat gpt content response with {self.companies_email.get()} for the companies emails and also {self.companies_site.get()} for the companies website any where necessary','register'+f'replace the generated chat gpt content response with {self.companies_email.get()} for the companies emails and also {self.companies_site.get()} for the companies website any where necessary']
         file_path = 'current_user_token.txt'
         with open("emailgenerationdetails.json","w") as generationFile:
@@ -924,8 +924,8 @@ class App(customtkinter.CTk):
         self.checkbox_slider_frame.grid(row=1, column=1, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.checkbox_1 = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='No of mails')
         self.checkbox_1.grid(row=1, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.number_of_messages = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='eg 20')
-        self.number_of_messages.grid(row=1, column=1, pady=(20, 0), padx=20, sticky="n")
+        self.numberofmessages = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='eg 20')
+        self.numberofmessages.grid(row=1, column=1, pady=(20, 0), padx=20, sticky="n")
         
         self.companies_email_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='Companies Email')
         self.companies_email_label.grid(row=2, column=0, pady=(20, 0), padx=20, sticky="n")

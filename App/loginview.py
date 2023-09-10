@@ -176,8 +176,9 @@ checkbox.pack(pady=12, padx=10)
 # change_password_button.pack(pady=6, padx=10)
 
 already_have_account_button = ctk.CTkButton(master=frame, text='Don\'t have an account yet?', command=dont_have_account, font=("Helvetica", 12))
+
 already_have_account_button.pack(pady=6, padx=10)
-# Add a UI scale label
 ui_scale_label = ctk.CTkLabel(master=frame, text='UI Scale', font=("Helvetica", 14))
 ui_scale_label.pack(pady=6, padx=10)
+
 app.mainloop()
