@@ -169,11 +169,11 @@ checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me')
 checkbox.pack(pady=12, padx=10)
 
 # Add "Forgot Password" and "Already have an account?" buttons
-forgot_password_button = ctk.CTkButton(master=frame, text='Forgot Password', command=reset_password, font=("Helvetica", 12))
-forgot_password_button.pack(pady=6, padx=10)
+# forgot_password_button = ctk.CTkButton(master=frame, text='Forgot Password', command=reset_password, font=("Helvetica", 12))
+# forgot_password_button.pack(pady=6, padx=10)
 
-change_password_button = ctk.CTkButton(master=frame, text='Change Password?', command=change_password, font=("Helvetica", 12))
-change_password_button.pack(pady=6, padx=10)
+# change_password_button = ctk.CTkButton(master=frame, text='Change Password?', command=change_password, font=("Helvetica", 12))
+# change_password_button.pack(pady=6, padx=10)
 
 already_have_account_button = ctk.CTkButton(master=frame, text='Don\'t have an account yet?', command=dont_have_account, font=("Helvetica", 12))
 already_have_account_button.pack(pady=6, padx=10)
