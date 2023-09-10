@@ -80,11 +80,11 @@ class App(customtkinter.CTk):
         self.email_port_label = customtkinter.CTkLabel(card_frame, text="Email_Port", text_color=['white','black'], font=("serif", 22))
         self.email_port_label.grid(row=3, column=0, padx=(20, 40), pady=5, sticky="w")
 
-        self.email_ssl_label = customtkinter.CTkLabel(card_frame, text="Use_SSL", text_color=['white','black'], font=("serif", 22))
+        self.email_ssl_label = customtkinter.CTkLabel(card_frame, text="SSL/TLS", text_color=['white','black'], font=("serif", 22))
         self.email_ssl_label.grid(row=4, column=0, padx=(20, 40), pady=5, sticky="w")
 
-        self.email_tls_label = customtkinter.CTkLabel(card_frame, text="Use_TLS", text_color=['white','black'], font=("serif", 22))
-        self.email_tls_label.grid(row=5, column=0, padx=(20, 40), pady=5, sticky="w")
+        # self.email_tls_label = customtkinter.CTkLabel(card_frame, text="Use_TLS", text_color=['white','black'], font=("serif", 22))
+        # self.email_tls_label.grid(row=5, column=0, padx=(20, 40), pady=5, sticky="w")
         # unit_label = customtkinter.CTkLabel(card_frame, text="Available Unit:", font=("serif", 22), text_color='white')
         # unit_label.grid(row=2, column=0, padx=(20, 10), pady=5, sticky="w")
 
@@ -144,11 +144,11 @@ class App(customtkinter.CTk):
                 self.emailportfield.insert(0,"None")
                 self.emailportfield.grid(row=3, column=1, padx=10, pady=(20, 5), sticky="w")
 
-                self.sslfield = customtkinter.CTkComboBox(card_frame,values=['False','True'],width=400, text_color=['black','white'], font=("serif", 22))
+                self.sslfield = customtkinter.CTkComboBox(card_frame,values=['SSL','TLS'],width=400, text_color=['black','white'], font=("serif", 22))
                 self.sslfield.grid(row=4, column=1, padx=10, pady=(20, 5), sticky="w")
 
-                self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['False','True'], width=400, text_color=['black','white'], font=("serif", 22))
-                self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
+                # self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['SSL','TLS'], width=400, text_color=['black','white'], font=("serif", 22))
+                # self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
             else:
                 
                 self.emailhostfield = customtkinter.CTkEntry(card_frame,placeholder_text='eg mail.supressedman.com', width=400, text_color=['black','white'], font=("serif", 22))
@@ -167,11 +167,11 @@ class App(customtkinter.CTk):
                 self.emailportfield.insert(0,email_port)
                 self.emailportfield.grid(row=3, column=1, padx=10, pady=(20, 5), sticky="w")
 
-                self.sslfield = customtkinter.CTkComboBox(card_frame,values=['False','True'],width=400, text_color=['black','white'], font=("serif", 22))
+                self.sslfield = customtkinter.CTkComboBox(card_frame,values=['SSL','TLS'],width=400, text_color=['black','white'], font=("serif", 22))
                 self.sslfield.grid(row=4, column=1, padx=10, pady=(20, 5), sticky="w")
 
-                self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['False','True'], width=400, text_color=['black','white'], font=("serif", 22))
-                self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
+                # self.tlsfield = customtkinter.CTkComboBox(card_frame,values=['False','True'], width=400, text_color=['black','white'], font=("serif", 22))
+                # self.tlsfield.grid(row=5, column=1, padx=10, pady=(20, 5), sticky="w")
             # self.send_mail_ui.email_host_edit.setText(email_host)
             # self.send_mail_ui.email_host_user_edit.setText(email_host_user)
             # self.send_mail_ui.email_port_edit.setText(email_port)
@@ -191,10 +191,11 @@ class App(customtkinter.CTk):
             'email_host': self.emailhostfield.get(),
             'email_host_user': self.emailhostuserfield.get(),
             'email_host_password':self.emailpasswordfield.get(),
-            'email_port':self.emailportfield.get()
+            'email_port':self.emailportfield.get(),
+            'email_usessl_or_tls':self.sslfield.get()
             # 'swapped_emails':None
         }
-        if (self.emailhostfield.get()=='') or (self.emailhostuserfield.get()=='') or (self.emailpasswordfield.get()=='') or (self.emailportfield.get()==''):
+        if (self.emailhostfield.get()=='') or (self.emailhostuserfield.get()=='') or (self.emailpasswordfield.get()=='') or (self.emailportfield.get()=='') or (self.sslfield.get()==''):
             # from PyQt6.QtWidgets import QMessageBox
             tkmb.showinfo(title='Credential alert',message="You need to fill in the form")
         else:

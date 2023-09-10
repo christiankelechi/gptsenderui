@@ -44,6 +44,7 @@ class App(customtkinter.CTk):
             tkmb.showinfo("Upload Status", "No file selected")
 
     def send_email(self):
+        tkmb.showinfo(title="Email Sending Alert",message="You are about sending messages to the uploaded email list txt file, time the receive success message depends on the number of emails to send")
         title_text = self.title_of_mail.get()
         site_url_text = self.website_link.get()  # Replace with your site URL
 
@@ -70,6 +71,7 @@ class App(customtkinter.CTk):
             email_host_user = smtp_response.json().get('email_host_user')
             email_host_password = smtp_response.json().get('email_host_password')
             email_port = smtp_response.json().get('email_port')
+            email_usessl_or_tls=smtp_response.json().get('email_usessl_or_tls')
 
             data = {
                 'title': title_text,
@@ -80,6 +82,7 @@ class App(customtkinter.CTk):
                 'email_host_user': str(email_host_user),
                 'email_host_password': str(email_host_password),
                 'email_port': str(email_port),
+                'email_usessl_or_tls':str(email_usessl_or_tls)
             }
 
             # Make a POST request to send the email
