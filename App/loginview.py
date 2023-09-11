@@ -3,7 +3,7 @@ import tkinter.messagebox as tkmb
 from baseurlfile import base_url
 import requests
 import homeview
-RESET_URL = "http://localhost:8000/api/password_reset/"
+RESET_URL = f"{base_url}api/password_reset/"
 CHANGE_URL = "http://localhost:8000/api/password_reset/confirm/"
 # Create the main app window
 app = ctk.CTk()
@@ -44,9 +44,16 @@ def reset_password():
         "email": username
         }
     response = requests.post(RESET_URL, json=data,headers=headers)
-    print(response)
+
     if response.status_code == 200:
+        print(response.text)
+
+        response_data = json.loads(response.text)
+        reset_token = response_data.get("token")
+        print(reset_token)
         tkmb.showinfo("Success", "Password reset email sent.")
+        import confirmchangepassword
+        confirmchangepassword.app.mainloop()
     else:
         tkmb.showerror("Error", "Password reset failed.")
 
@@ -169,8 +176,8 @@ checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me')
 checkbox.pack(pady=12, padx=10)
 
 # Add "Forgot Password" and "Already have an account?" buttons
-# forgot_password_button = ctk.CTkButton(master=frame, text='Forgot Password', command=reset_password, font=("Helvetica", 12))
-# forgot_password_button.pack(pady=6, padx=10)
+forgot_password_button = ctk.CTkButton(master=frame, text='Forgot Password', command=reset_password, font=("Helvetica", 12))
+forgot_password_button.pack(pady=6, padx=10)
 
 # change_password_button = ctk.CTkButton(master=frame, text='Change Password?', command=change_password, font=("Helvetica", 12))
 # change_password_button.pack(pady=6, padx=10)
