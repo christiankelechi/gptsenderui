@@ -1,3 +1,5 @@
 customtkinter
 requests
 openai
+plyer
+appdirs

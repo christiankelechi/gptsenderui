@@ -5,6 +5,7 @@ import tkinter.messagebox as tkmb
 import thememanager
 import random
 import webbrowser
+from plyer import notification  
   # Themes: "blue" (standard), "green", "dark-blue"
 from pathlib import Path
 app_running=True
@@ -33,7 +34,7 @@ def check_app_version():
         data = response.json()
         message = data.get("app_update_response")
         # pip install plyer  
-        from plyer import notification  
+        
         
         notification_title = 'Software Update Needed'  
         # notification_message = 'Thank you for reading. Have a Good Day.'  
@@ -287,9 +288,15 @@ class App(customtkinter.CTk):
                                 increment = 100
 
                                 
-                                downloads_dir = Path.home() / "Downloads"
-                                file_path = downloads_dir / "emails.json"
-                                
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "emails.json"
+                                file_path = Path(app_data_dir) / file_name
+                        
 
                                 total_iterations = int(self.number_of_messages) # 
                                 increment = 100
@@ -307,8 +314,15 @@ class App(customtkinter.CTk):
                                 
                             
                             main()
-                            downloads_dir = Path.home() / "Downloads"
-                            file_path = downloads_dir / "emails.json"
+                            import appdirs
+                            from pathlib import Path
+
+                            # Get the appropriate directory for application-specific data
+                            app_data_dir = appdirs.user_data_dir()
+
+                            file_name = "emails.json"
+                            file_path = Path(app_data_dir) / file_name
+                        
                             with open(file_path,'r') as readmailfile:
                                 data_loaded=json.load(readmailfile)
                             
@@ -337,7 +351,14 @@ class App(customtkinter.CTk):
                                 processed_json = process_json(data_loaded)
                             
                             # Create the file path
-                                file_path = downloads_dir / "swappedemails.json"
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "swappedemails.json"
+                                file_path = Path(app_data_dir) / file_name
                                 
                                 # Write the formatted data to the file
                                 with open(file_path, 'w') as file:
@@ -390,8 +411,14 @@ class App(customtkinter.CTk):
                                 increment = 100
 
                                 
-                                downloads_dir = Path.home() / "Downloads"
-                                file_path = downloads_dir / "emails.json"
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "emails.json"
+                                file_path = Path(app_data_dir) / file_name
                                 
 
                                 total_iterations = int(self.number_of_messages) # 
@@ -410,8 +437,15 @@ class App(customtkinter.CTk):
                                 
                             
                             main()
-                            downloads_dir = Path.home() / "Downloads"
-                            file_path = downloads_dir / "emails.json"
+                            import appdirs
+                            from pathlib import Path
+
+                            # Get the appropriate directory for application-specific data
+                            app_data_dir = appdirs.user_data_dir()
+
+                            file_name = "emails.json"
+                            file_path = Path(app_data_dir) / file_name
+                            
                             with open(file_path,'r') as readmailfile:
                                 data_loaded=json.load(readmailfile)
                             
@@ -438,9 +472,17 @@ class App(customtkinter.CTk):
                             def main():
                                 
                                 processed_json = process_json(data_loaded)
-                            
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "swappedemails.json"
+                                file_path = Path(app_data_dir) / file_name
+                                
                             # Create the file path
-                                file_path = downloads_dir / "swappedemails.json"
+                                # file_path = downloads_dir / "swappedemails.json"
                                 
                                 # Write the formatted data to the file
                                 with open(file_path, 'w') as file:
@@ -494,8 +536,14 @@ class App(customtkinter.CTk):
                                 increment = 100
 
                                 
-                                downloads_dir = Path.home() / "Downloads"
-                                file_path = downloads_dir / "emails.json"
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "emails.json"
+                                file_path = Path(app_data_dir) / file_name
                                 
 
                                 total_iterations = int(self.number_of_messages) # 
@@ -514,8 +562,15 @@ class App(customtkinter.CTk):
                                 
                             
                             main()
-                            downloads_dir = Path.home() / "Downloads"
-                            file_path = downloads_dir / "emails.json"
+                            import appdirs
+                            from pathlib import Path
+
+                            # Get the appropriate directory for application-specific data
+                            app_data_dir = appdirs.user_data_dir()
+
+                            file_name = "emails.json"
+                            file_path = Path(app_data_dir) / file_name
+                                
                             with open(file_path,'r') as readmailfile:
                                 data_loaded=json.load(readmailfile)
                             
@@ -552,7 +607,16 @@ class App(customtkinter.CTk):
                                 import json
                                 from baseurlfile import base_url
                                 wallet_balance_response = requests.get(f'{base_url}api/usdtopup/',headers=headers)
-                                file_path = downloads_dir / "swappedemails.json"
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "swappedemails.json"
+                                file_path = Path(app_data_dir) / file_name
+                        
+                                # file_path = downloads_dir / "swappedemails.json"
                                 # current_user=UsdModel.objects.get(user=user)
                                 
                                 # Write the formatted data to the file
@@ -607,8 +671,15 @@ class App(customtkinter.CTk):
                                 increment = 100
 
                                 
-                                downloads_dir = Path.home() / "Downloads"
-                                file_path = downloads_dir / "emails.json"
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "emails.json"
+                                file_path = Path(app_data_dir) / file_name
+                        
                                 
 
                                 total_iterations = int(self.number_of_messages) # 
@@ -627,8 +698,15 @@ class App(customtkinter.CTk):
                                 
                             
                             main()
-                            downloads_dir = Path.home() / "Downloads"
-                            file_path = downloads_dir / "emails.json"
+                            import appdirs
+                            from pathlib import Path
+
+                            # Get the appropriate directory for application-specific data
+                            app_data_dir = appdirs.user_data_dir()
+
+                            file_name = "emails.json"
+                            file_path = Path(app_data_dir) / file_name
+                        
                             with open(file_path,'r') as readmailfile:
                                 data_loaded=json.load(readmailfile)
                             
@@ -655,9 +733,17 @@ class App(customtkinter.CTk):
                             def main():
                                 
                                 processed_json = process_json(data_loaded)
-                            
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "swappedemails.json"
+                                file_path = Path(app_data_dir) / file_name
+                                
                             # Create the file path
-                                file_path = downloads_dir / "swappedemails.json"
+                                # file_path = downloads_dir / "swappedemails.json"
                                 
                                 # Write the formatted data to the file
                                 with open(file_path, 'w') as file:
@@ -711,13 +797,17 @@ class App(customtkinter.CTk):
                                 increment = 100
 
                                 
-                                downloads_dir = Path.home() / "Downloads"
-                                file_path = downloads_dir / "emails.json"
-                                
+                                import appdirs
+                                from pathlib import Path
 
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "emails.json"
+                                file_path = Path(app_data_dir) / file_name
+                        
                                 total_iterations = int(self.number_of_messages) # 
                                 increment = 100
-                                
                                 
                                 responses_dict = {}
                                 for n in range(1, total_iterations + 1, increment):
@@ -731,8 +821,15 @@ class App(customtkinter.CTk):
                                 
                             
                             main()
-                            downloads_dir = Path.home() / "Downloads"
-                            file_path = downloads_dir / "emails.json"
+                            import appdirs
+                            from pathlib import Path
+
+                            # Get the appropriate directory for application-specific data
+                            app_data_dir = appdirs.user_data_dir()
+
+                            file_name = "emails.json"
+                            file_path = Path(app_data_dir) / file_name
+                        
                             with open(file_path,'r') as readmailfile:
                                 data_loaded=json.load(readmailfile)
                             
@@ -761,7 +858,15 @@ class App(customtkinter.CTk):
                                 processed_json = process_json(data_loaded)
                             
                             # Create the file path
-                                file_path = downloads_dir / "swappedemails.json"
+                                import appdirs
+                                from pathlib import Path
+
+                                # Get the appropriate directory for application-specific data
+                                app_data_dir = appdirs.user_data_dir()
+
+                                file_name = "swappedemails.json"
+                                file_path = Path(app_data_dir) / file_name
+                        
                                 
                                 # Write the formatted data to the file
                                 with open(file_path, 'w') as file:
@@ -810,9 +915,13 @@ class App(customtkinter.CTk):
         
     def generate_email_template(self):
         # async def run_tasks():
-        import asyncio
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.makeRequestToOpenAi())
+        # import asyncio
+        # loop = asyncio.get_event_loop()
+        import threading
+        global generateemail_thread
+        generateemail_thread=threading.Thread(target=self.makeRequestToOpenAi)
+        # loop.run_until_complete(self.makeRequestToOpenAi())
+        generateemail_thread.start()
     
 
     def set_light_theme():

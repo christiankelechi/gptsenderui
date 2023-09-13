@@ -3,6 +3,7 @@ import tkinter.messagebox as tkmb
 from baseurlfile import base_url
 import requests
 import homeview
+import threading
 RESET_URL = f"{base_url}api/password_reset/"
 CHANGE_URL = "http://localhost:8000/api/password_reset/confirm/"
 # Create the main app window
@@ -13,7 +14,10 @@ ctk.set_appearance_mode(str(theme))
 # Set the initial theme to 'dark'
 # def forget_password():
 #     pass
-
+def homeFunc():
+    import homeview
+    homeObj=homeview.App()
+    homeObj.mainloop()
 def already_have_account():
     import loginview
     loginview.app 
@@ -86,6 +90,11 @@ def change_theme(theme):
     pass
     
 
+def reset_password_thread():
+    global reset_thread
+    # progress_bar.start()
+    reset_thread = threading.Thread(target=reset_password)
+    reset_thread.start()
 # Get screen width and height
 screen_width = app.winfo_screenwidth()
 screen_height = app.winfo_screenheight()
@@ -171,12 +180,14 @@ user_pass.pack(pady=12, padx=10)
 
 button = ctk.CTkButton(master=frame, text='Login', command=login, bg_color='green', fg_color='black', font=("Helvetica", 14))
 button.pack(pady=12, padx=10)
+home_button = ctk.CTkButton(master=frame, text='Preview Home', command=homeFunc, bg_color='green', fg_color='black', font=("Helvetica", 14))
+home_button.pack(pady=12, padx=10)
 
 checkbox = ctk.CTkCheckBox(master=frame, text='Remember Me')
 checkbox.pack(pady=12, padx=10)
 
 # Add "Forgot Password" and "Already have an account?" buttons
-forgot_password_button = ctk.CTkButton(master=frame, text='Forgot Password', command=reset_password, font=("Helvetica", 12))
+forgot_password_button = ctk.CTkButton(master=frame, text='Forgot Password', command=reset_password_thread, font=("Helvetica", 12))
 forgot_password_button.pack(pady=6, padx=10)
 
 # change_password_button = ctk.CTkButton(master=frame, text='Change Password?', command=change_password, font=("Helvetica", 12))

@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import time
 from PIL import Image, ImageTk
+import threading
 # import homeview
 import customtkinter as ctk
 
@@ -48,7 +49,7 @@ class GPTSenderApp(tk.Tk):
         style.configure("blue.Horizontal.TProgressbar")
 
         # Start the loading asynchronously using the 'after' method
-        self.after(100, self.simulate_loading)
+        self.after(100, self.loading_thread)
         
     def center_window(self):
         screen_width = self.winfo_screenwidth()
@@ -64,15 +65,15 @@ class GPTSenderApp(tk.Tk):
             time.sleep(0.1)
         
         # Destroy the loading screen
-        self.destroy()
+        self.withdraw()
         
         import homeview
 
         # Create the home view
-        home_frame = homeview.App()
+        # home_frame = homeview.App()
 
-        # Use the 'after' method to show the home view after a brief delay
-        self.after(100, lambda: home_frame.deiconify())
+        # # Use the 'after' method to show the home view after a brief delay
+        # self.after(100, lambda: home_frame.deiconify())
 
         # Create the login view
         import loginview
@@ -81,6 +82,12 @@ class GPTSenderApp(tk.Tk):
         login_frame = loginview.app
         login_frame._set_appearance_mode("Light")
         login_frame.withdraw()
+
+    def loading_thread(self):
+        global load_thread
+        # progress_bar.start()
+        load_thread = threading.Thread(target=self.simulate_loading)
+        load_thread.start()
 
 if __name__ == "__main__":
     app = GPTSenderApp()
