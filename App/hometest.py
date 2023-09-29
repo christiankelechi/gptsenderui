@@ -1,3 +1,87 @@
+import tkinter as tk
+import customtkinter  # Make sure you import your customtkinter module
+
+class MyFrame(customtkinter.CTkFrame):
+    def navigateToTopup(self):
+        self.withdraw()
+        import topupview
+        topUpObj=topupview.App()
+        topUpObj.mainloop()
+
+    def generate_email_template(self):
+        # async def run_tasks():
+        import asyncio
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.makeRequestToOpenAi())
+    
+    def navigateToSendNav(self):
+        import sendnavformview
+        sendNavObj=sendnavformview.App()
+        sendNavObj.mainloop()
+
+    def open_input_dialog_event(self):
+        dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
+        print("CTkInputDialog:", dialog.get_input())
+
+    def change_appearance_mode_event(self, new_appearance_mode: str):
+        with open('themevalue.txt','w') as themefile:
+            themefile.write(str(new_appearance_mode))
+        customtkinter.set_appearance_mode(new_appearance_mode)
+
+    def change_scaling_event(self, new_scaling: str):
+        new_scaling_float = int(new_scaling.replace("%", "")) / 100
+        customtkinter.set_widget_scaling(new_scaling_float)
+
+    def sidebar_button_event(self):
+        print("sidebar_button click")
+    def __init__(self, parent):
+        super().__init__(parent)
+        
+        self.columnconfigure(0, weight=1)  # Make sure the column expands with the window
+
+        # Create and place the widgets in the frame
+        prompt_list = ['follow_up', 'software sales', 'promote your business', 'register prompt', 'share prompt']
+        
+        self.prompt_combo = customtkinter.CTkComboBox(self, values=prompt_list, width=100, height=50)
+        self.prompt_combo.grid(row=6, column=0, padx=(20, 5), pady=(20, 5), sticky="nsew")
+
+        self.generatemailbutton = customtkinter.CTkButton(self, fg_color="transparent", border_width=1,
+                                                          text_color=("gray10", "#DCE4EE"), text="generate", width=90,
+                                                          command=self.generate_email_template)
+        self.generatemailbutton.grid(row=6, column=1, sticky="nsew", pady=(10, 10), padx=(10, 10))
+
+        self.textbox = customtkinter.CTkTextbox(self, width=100, height=300)
+        self.textbox.grid(row=1, column=0, padx=(0, 40), pady=(0, 40), sticky="nsew")
+
+        self.checkbox_slider_frame = customtkinter.CTkFrame(self)
+        self.checkbox_slider_frame.grid(row=2, column=0, padx=(20, 20), pady=(20, 0), sticky="nsew")
+
+        self.checkbox_1 = customtkinter.CTkLabel(master=self.checkbox_slider_frame, text='No of mails')
+        self.checkbox_1.grid(row=0, column=0, pady=(20, 0), padx=20, sticky="n")
+
+        self.numberofmessages = customtkinter.CTkEntry(master=self.checkbox_slider_frame, width=200,
+                                                       placeholder_text='eg 20')
+        self.numberofmessages.grid(row=0, column=1, pady=(20, 0), padx=20, sticky="n")
+
+        self.companies_email_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame, text='Companies Email')
+        self.companies_email_label.grid(row=1, column=0, pady=(20, 0), padx=20, sticky="n")
+
+        self.companies_email = customtkinter.CTkEntry(master=self.checkbox_slider_frame, width=200,
+                                                      placeholder_text='kezechristian@gmail.com')
+        self.companies_email.grid(row=1, column=1, pady=(20, 0), padx=20, sticky="n")
+
+        self.companies_site_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame, text='Companies Site')
+        self.companies_site_label.grid(row=2, column=0, pady=(20, 0), padx=20, sticky="n")
+
+        self.companies_site = customtkinter.CTkEntry(master=self.checkbox_slider_frame, width=200,
+                                                      placeholder_text='www.codeblazeacademy.net')
+        self.companies_site.grid(row=2, column=1, pady=(20, 0), padx=20, sticky="n")
+
+        # Make sure rows expand with the frame
+        self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
+        self.rowconfigure(2, weight=1)
+
 import tkinter
 import tkinter.messagebox
 import customtkinter
@@ -1013,45 +1097,52 @@ class App(customtkinter.CTk):
         # create main entry and button
         # self.entry = customtkinter.CTkEntry(self, placeholder_text="CTkEntry",width=10,height=50)
         # self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
-        def combobox_callback(choice):
-            print("combobox dropdown clicked:", choice)
-        prompt_list=['follow_up','software sales','promote your business','register prompt','share prompt']
-        self.prompt_combo = customtkinter.CTkComboBox(self, values=prompt_list,command=combobox_callback,width=100,height=50)
-# combobox.set("option 2")
-        self.prompt_combo.grid(row=3, column=1, columnspan=1, padx=(20, 5), pady=(20, 5), sticky="nsew")
+#         def combobox_callback(choice):
+#             print("combobox dropdown clicked:", choice)
+#         prompt_list=['follow_up','software sales','promote your business','register prompt','share prompt']
+#         self.prompt_combo = customtkinter.CTkComboBox(self, values=prompt_list,command=combobox_callback,width=100,height=50)
+# # combobox.set("option 2")
+#         self.prompt_combo.grid(row=3, column=1, columnspan=1, padx=(20, 5), pady=(20, 5), sticky="nsew")
 
 
-        self.generatemailbutton = customtkinter.CTkButton(self, fg_color="transparent", border_width=1, text_color=("gray10", "#DCE4EE"),text="generate",width=90,command=self.generate_email_template)
-        self.generatemailbutton.grid(row=3, column=3, sticky="nsew",pady=(10,10),padx=(10,10))
+#         self.generatemailbutton = customtkinter.CTkButton(self, fg_color="transparent", border_width=1, text_color=("gray10", "#DCE4EE"),text="generate",width=90,command=self.generate_email_template)
+#         self.generatemailbutton.grid(row=3, column=3, sticky="nsew",pady=(10,10),padx=(10,10))
         
-        # create textbox
-        # self.tabview = customtkinter.CTkTabview(self, width=350)
-        # self.tabview.grid(row=0, column=1, sticky="nsew")
-        self.textbox = customtkinter.CTkTextbox(self, width=100,height=300)
-        self.textbox.grid(row=0, column=1, padx=(0, 40), pady=(0, 40), sticky="nsew")
+#         # create textbox
+#         # self.tabview = customtkinter.CTkTabview(self, width=350)
+#         # self.tabview.grid(row=0, column=1, sticky="nsew")
+#         self.textbox = customtkinter.CTkTextbox(self, width=100,height=300)
+#         self.textbox.grid(row=0, column=1, padx=(0, 40), pady=(0, 40), sticky="nsew")
 
         
-        # create checkbox and switch frame
-        self.checkbox_slider_frame = customtkinter.CTkFrame(self)
-        self.checkbox_slider_frame.grid(row=1, column=1, padx=(20, 20), pady=(20, 0), sticky="nsew")
-        self.checkbox_1 = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='No of mails')
-        self.checkbox_1.grid(row=1, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.numberofmessages = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='eg 20')
-        self.numberofmessages.grid(row=1, column=1, pady=(20, 0), padx=20, sticky="n")
+#         # create checkbox and switch frame
+#         self.checkbox_slider_frame = customtkinter.CTkFrame(self)
+#         self.checkbox_slider_frame.grid(row=1, column=1, padx=(20, 20), pady=(20, 0), sticky="nsew")
+#         self.checkbox_1 = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='No of mails')
+#         self.checkbox_1.grid(row=1, column=0, pady=(20, 0), padx=20, sticky="n")
+#         self.numberofmessages = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='eg 20')
+#         self.numberofmessages.grid(row=1, column=1, pady=(20, 0), padx=20, sticky="n")
         
-        self.companies_email_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='Companies Email')
-        self.companies_email_label.grid(row=2, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.companies_email = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='kezechristian@gmail.com')
-        self.companies_email.grid(row=2, column=1, pady=(20, 0), padx=20, sticky="n")
+#         self.companies_email_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='Companies Email')
+#         self.companies_email_label.grid(row=2, column=0, pady=(20, 0), padx=20, sticky="n")
+#         self.companies_email = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='kezechristian@gmail.com')
+#         self.companies_email.grid(row=2, column=1, pady=(20, 0), padx=20, sticky="n")
 
-        self.companies_site_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='Companies Site')
-        self.companies_site_label.grid(row=3, column=0, pady=(20, 0), padx=20, sticky="n")
+#         self.companies_site_label = customtkinter.CTkLabel(master=self.checkbox_slider_frame,text='Companies Site')
+#         self.companies_site_label.grid(row=3, column=0, pady=(20, 0), padx=20, sticky="n")
 
-        self.companies_site = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='www.codeblazeacademy.net')
-        self.companies_site.grid(row=3, column=1, pady=(20, 0), padx=20, sticky="n")
+#         self.companies_site = customtkinter.CTkEntry(master=self.checkbox_slider_frame,width=200,placeholder_text='www.codeblazeacademy.net')
+#         self.companies_site.grid(row=3, column=1, pady=(20, 0), padx=20, sticky="n")
+        # my_frame = MyFrame(self)
+        my_frame = MyFrame(self)
         
+        my_frame.grid(row=0, column=1, sticky="nsew")
+        self.grid_rowconfigure(1, weight=5)
         self.appearance_mode_optionemenu.set("Light")
         self.scaling_optionemenu.set("100%")
+        my_frame.grid_remove()
+
+
         # self.check_app_version()
         # self.check_app_version()
     def navigateToTopup(self):

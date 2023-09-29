@@ -20,8 +20,8 @@ class App(customtkinter.CTk):
         homeObj.mainloop()
     
     def navigateToWallet(self):
-        import wallet
-        walletObj=wallet.App()
+        import App.home as home
+        walletObj=home.App()
         walletObj.mainloop()
 
     def navigateToSendView(self):
@@ -544,10 +544,15 @@ class App(customtkinter.CTk):
         self.home_button_menu.grid(row=1, column=0, padx=20, pady=10)
         self.wallet_button_menu = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToWallet,text='Wallet')
         self.wallet_button_menu.grid(row=2, column=0, padx=20, pady=10)
+
+        
         # self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=self.sidebar_button_event,text='Mails')
         # self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
         self.send_mails_button_menu = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToSendView,text='Send Mails')
         self.send_mails_button_menu.grid(row=3, column=0, padx=20, pady=10)
+
+        self.topup_btn = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToTopup,text='Topup Wallet')
+        self.topup_btn.grid(row=4, column=0, padx=20, pady=10)
 
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
@@ -611,6 +616,11 @@ class App(customtkinter.CTk):
         self.message_list={}
         self.maillist={}
         self.animate_frame()
+    def navigateToTopup(self):
+        import topupview
+        topUpObj=topupview.App()
+        topUpObj.mainloop()
+
     def load_template(self):
         selected_template = self.template_combobox.get()
 

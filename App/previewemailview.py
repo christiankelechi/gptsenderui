@@ -16,8 +16,8 @@ class App(customtkinter.CTk):
         return html_content
     
     def navigateToWallet(self):
-        import wallet
-        walletObj=wallet.App()
+        import App.home as home
+        walletObj=home.App()
         walletObj.mainloop()
 
     def navigateToSendMail(self):

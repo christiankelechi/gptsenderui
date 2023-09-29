@@ -5,8 +5,8 @@ import tkinter.messagebox as tkmb
 
 class App(customtkinter.CTk):
     def navigateToWallet(self):
-        import wallet
-        walletObj=wallet.App()
+        import App.home as home
+        walletObj=home.App()
         walletObj.mainloop()
     
     def navigateToHome(self):
@@ -57,6 +57,9 @@ class App(customtkinter.CTk):
         # self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
         self.sidebar_button_4 = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToSendNav,text='Send Mails')
         self.sidebar_button_4.grid(row=3, column=0, padx=20, pady=10)
+
+        self.topup_btn = customtkinter.CTkButton(self.sidebar_frame, command=self.navigateToTopup,text='Topup Wallet')
+        self.topup_btn.grid(row=4, column=0, padx=20, pady=10)
 
         self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["Light", "Dark", "System"],command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))

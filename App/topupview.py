@@ -76,8 +76,8 @@ class App(customtkinter.CTk):
 
 
     def navigateToWallet(self):
-        import wallet
-        walletObj=wallet.App()
+        import App.home as home
+        walletObj=home.App()
         walletObj.mainloop()
     def __init__(self):
         super().__init__()
@@ -122,29 +122,29 @@ class App(customtkinter.CTk):
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
         # Create a card frame for wallet information
-        card_frame = customtkinter.CTkFrame(self, corner_radius=10, fg_color=["skyblue", "skyblue"])
-        card_frame.grid(row=0, column=1, rowspan=2, padx=20, pady=20, sticky="nsew")
+        # card_frame = customtkinter.CTkFrame(self, corner_radius=10, fg_color=["skyblue", "skyblue"])
+        # card_frame.grid(row=0, column=1, rowspan=2, padx=20, pady=20, sticky="nsew")
 
-        wallet_label = customtkinter.CTkLabel(card_frame, text="Amount:($)", text_color='white', font=("serif", 22))
-        wallet_label.grid(row=0, column=0, padx=(20, 10), pady=(20, 5), sticky="w")
+        # wallet_label = customtkinter.CTkLabel(card_frame, text="Amount:($)", text_color='white', font=("serif", 22))
+        # wallet_label.grid(row=0, column=0, padx=(20, 10), pady=(20, 5), sticky="w")
 
-        fund_label = customtkinter.CTkLabel(card_frame, text="Currency", text_color='white', font=("serif", 22))
-        fund_label.grid(row=1, column=0, padx=(20, 10), pady=5, sticky="w")
+        # fund_label = customtkinter.CTkLabel(card_frame, text="Currency", text_color='white', font=("serif", 22))
+        # fund_label.grid(row=1, column=0, padx=(20, 10), pady=5, sticky="w")
 
-        # unit_label = customtkinter.CTkLabel(card_frame, text="Available Unit:", font=("serif", 22), text_color='white')
-        # unit_label.grid(row=2, column=0, padx=(20, 10), pady=5, sticky="w")
+        # # unit_label = customtkinter.CTkLabel(card_frame, text="Available Unit:", font=("serif", 22), text_color='white')
+        # # unit_label.grid(row=2, column=0, padx=(20, 10), pady=5, sticky="w")
 
-        self.amount_value = customtkinter.CTkEntry(card_frame,placeholder_text='eg 20,40 etc', width=200, text_color=['black','white'], font=("serif", 22))
-        self.amount_value.grid(row=0, column=1, padx=10, pady=(20, 5), sticky="w")
+        # self.amount_value = customtkinter.CTkEntry(card_frame,placeholder_text='eg 20,40 etc', width=200, text_color=['black','white'], font=("serif", 22))
+        # self.amount_value.grid(row=0, column=1, padx=10, pady=(20, 5), sticky="w")
 
-        self.currency_value = customtkinter.CTkComboBox(card_frame, values=['USD'], width=200, text_color=['black','white'], font=("serif", 22))
-        self.currency_value.grid(row=1, column=1, padx=10, pady=5, sticky="w")
+        # self.currency_value = customtkinter.CTkComboBox(card_frame, values=['USD'], width=200, text_color=['black','white'], font=("serif", 22))
+        # self.currency_value.grid(row=1, column=1, padx=10, pady=5, sticky="w")
 
-        # unit_value = customtkinter.CTkLabel(card_frame, text="0", width=200, text_color='white', font=("serif", 22))
-        # unit_value.grid(row=2, column=1, padx=10, pady=5, sticky="w")
+        # # unit_value = customtkinter.CTkLabel(card_frame, text="0", width=200, text_color='white', font=("serif", 22))
+        # # unit_value.grid(row=2, column=1, padx=10, pady=5, sticky="w")
 
-        fund_button = customtkinter.CTkButton(card_frame, text="Fund Wallet", width=200, text_color='white', font=("serif", 22),command=self.topUpEndPoint)
-        fund_button.grid(row=3, column=1, padx=(20, 10), pady=(20, 20), sticky="w")
+        # fund_button = customtkinter.CTkButton(card_frame, text="Fund Wallet", width=200, text_color='white', font=("serif", 22),command=self.topUpEndPoint)
+        # fund_button.grid(row=3, column=1, padx=(20, 10), pady=(20, 20), sticky="w")
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)

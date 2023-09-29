@@ -144,7 +144,8 @@ def login():
             file.write(str(request_id))
 
         tkmb.showinfo(title="Login Successful", message="You have logged in Successfully")
-        home_obj = homeview.App()
+        import home
+        home_obj = home.App()
         home_obj.mainloop()
     else:
         # QtWidgets.QMessageBox.warning(self, "Login Failed", "Invalid email or password. Please try again.")
